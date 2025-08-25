@@ -1,3 +1,4 @@
+< xaiArtifact artifact_id="9d907c18-0b93-4f73-9eb9-7f8eee429aff" artifact_version_id="a87fb845-76bd-4ca9-a66d-8a03576cc596" title="backend/requirements.txt" contentType="text/plain">
 pyTelegramBotAPI
 pymongo
 requests
