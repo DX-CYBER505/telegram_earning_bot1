@@ -1,52 +1,35 @@
 package com.earningbot;
 
-import com.sun.net.httpserver.HttpServer;
-import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpExchange;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.InetSocketAddress;
-
+@SpringBootApplication
+@RestController
 public class AdServer {
-    public static void main(String[] args) throws IOException {
-        HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
-        server.createContext("/ad", new AdHandler());
-        server.setExecutor(null);
-        server.start();
-        System.out.println("Ad server running on port 8080...");
+
+    public static void main(String[] args) {
+        SpringApplication.run(AdServer.class, args);
     }
 
-    static class AdHandler implements HttpHandler {
-        @Override
-        public void handle(HttpExchange exchange) throws IOException {
-            String query = exchange.getRequestURI().getQuery();
-            String token = null;
-            String userId = null;
-
-            if (query != null) {
-                for (String param : query.split("&")) {
-                    String[] pair = param.split("=");
-                    if (pair[0].equals("token")) {
-                        token = pair[1];
-                    } else if (pair[0].equals("user_id")) {
-                        userId = pair[1];
-                    }
-                }
-            }
-
-            String response;
-            if (token != null && token.equals("0bc23fcccc35acd927d3e508222416b9")) {
-                response = "{\"status\": \"success\", \"ad_url\": \"https://adsterra.com/popunder?user_id=" + userId + "\"}";
-            } else {
-                response = "{\"status\": \"error\", \"message\": \"Invalid token\"}";
-            }
-
-            exchange.getResponseHeaders().set("Content-Type", "application/json");
-            exchange.sendResponseHeaders(200, response.length());
-            OutputStream os = exchange.getResponseBody();
-            os.write(response.getBytes());
-            os.close();
-        }
+    @GetMapping("/ad")
+    public ResponseEntity<String> getAd(@RequestParam("user_id") String userId) {
+        // Simulate Adsterra ad serving (replace with actual API call when available)
+        String adsterraAdUrl = "http://pl26780328.profitableratecpm.com/2e/7b/58/2e7b58d34093cfaae6a3392a1b1d6043";
+        // Placeholder for Adsterra API call
+        // String adUrl = callAdsterraApi(userId, "0bc23fcccc35acd927d3e508222416b9");
+        return new ResponseEntity<>("{\"ad_url\": \"" + adsterraAdUrl + "\"}", HttpStatus.OK);
     }
+
+    // Placeholder for Adsterra API integration
+    /*
+    private String callAdsterraApi(String userId, String apiToken) {
+        // Implement Adsterra API call here when endpoint is provided
+        return "http://pl26780328.profitableratecpm.com/2e/7b/58/2e7b58d34093cfaae6a3392a1b1d6043";
+    }
+    */
 }
