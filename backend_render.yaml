@@ -1,18 +1,12 @@
 services:
-  - type: web
-    name: pochi-backend
+  - type: worker # Bot er jonno 'worker' use kora hoy
+    name: telegram-earning-bot1
     env: python
-    plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: python bot.py
+    plan: free # Apnar plan onujayi change korte paren
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python bot.py"
     envVars:
-      - key: TOKEN
-        value: 7771736139:AAFhBdAAZF6-rV7YCX08hHK_FAYrHDe8sL0
-      - key: MONGO_URI
-        value: mongodb+srv://botuser:Xyz12345@tgbot.wh52pfi.mongodb.net/?retryWrites=true&w=majority&appName=tgbot
-      - key: ADSTERRA_API_TOKEN
-        value: 0bc23fcccc35acd927d3e508222416b9
-      - key: AD_SERVER_URL
-        sync: false # e.g., https://pochi-adserver.onrender.com
-      - key: DASHBOARD_URL
-        sync: false # e.g., https://pochi-frontend.onrender.com
+      - key: BOT_TOKEN # Eita bot.py file er sathe mil rekhe change kora hoyeche
+        sync: false
+      - key: MONGO_URI # Database connection string er jonno
+        sync: false
