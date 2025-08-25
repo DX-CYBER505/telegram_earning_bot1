@@ -1,6 +1,6 @@
 import telebot
 import certifi
-import pymongo
+import urllib.parse
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pymongo import MongoClient
 import datetime
