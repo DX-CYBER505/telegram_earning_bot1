@@ -471,5 +471,5 @@ def command_handlers(message):
 
 # --- Bot Polling ---
 print("Bot is running...")
-bot.infinity_polling()
 bot.remove_webhook()  
+bot.infinity_polling()
