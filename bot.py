@@ -1,4 +1,6 @@
 import telebot
+import certifi
+import pymongo
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pymongo import MongoClient
 import datetime
@@ -9,6 +11,8 @@ import os
 TOKEN = os.environ.get('BOT_TOKEN')
 ADMIN_ID = 6277866627 # Apnar Admin ID
 
+
+TOKEN = os.environ.get('BOT_TOKEN')
 if not TOKEN:
     print("CRITICAL ERROR: BOT_TOKEN environment variable not found!")
     exit()
@@ -21,11 +25,16 @@ if not MONGO_URI:
     print("CRITICAL ERROR: MONGO_URI environment variable not found!")
     exit()
 
-client = MongoClient(MONGO_URI)
+client = MongoClient(
+    MONGO_URI,
+    tls=True,
+    tlsCAFile=certifi.where()
+)
 db = client['earning_bot']
 users_collection = db['users']
 settings_collection = db['settings']
 withdraw_requests_collection = db['withdraw_requests']
+
 
 # --- Language Dictionaries (Adsterra link er jonno notun text add kora hoyeche) ---
 languages = {
