@@ -1,12 +1,10 @@
-buildCommand: pip install --upgrade pip && pip install -r requirements.txt
-pythonVersion: 3.11
-
 services:
   - type: worker # Bot er jonno 'worker' use kora hoy
     name: telegram-earning-bot1
     env: python
     plan: free # Apnar plan onujayi change korte paren
-    buildCommand: "pip install -r requirements.txt"
+    buildCommand: "pip install --upgrade pip && pip install -r requirements.txt"
+    pythonVersion: 3.11
     startCommand: "python bot.py"
     envVars:
       - key: BOT_TOKEN # Eita bot.py file er sathe mil rekhe change kora hoyeche
