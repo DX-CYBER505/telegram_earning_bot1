@@ -1,2 +1,4 @@
 pyTelegramBotAPI
 pymongo[srv]
+pymongo>=4.7.0
+certifi>=2024.2.2
