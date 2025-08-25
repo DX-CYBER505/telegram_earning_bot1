@@ -1,3 +1,6 @@
+buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+pythonVersion: 3.11
+
 services:
   - type: worker # Bot er jonno 'worker' use kora hoy
     name: telegram-earning-bot1
