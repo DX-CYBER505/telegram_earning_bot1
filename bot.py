@@ -7,34 +7,39 @@ import datetime
 import os
 
 # --- Bot Token & Admin ID ---
-# Token-ti Render.com er Environment theke neya hobe
 TOKEN = os.environ.get('BOT_TOKEN')
-ADMIN_ID = 6277866627 # Apnar Admin ID
+ADMIN_ID = 6277866627  # Replace with your Telegram ID
 
-
-TOKEN = os.environ.get('BOT_TOKEN')
 if not TOKEN:
     print("CRITICAL ERROR: BOT_TOKEN environment variable not found!")
     exit()
 
 bot = telebot.TeleBot(TOKEN)
 
+# --- Remove webhook first to avoid 409 error ---
+bot.remove_webhook()
+
 # --- MongoDB Setup ---
-MONGO_URI = os.environ.get('MONGO_URI')
-if not MONGO_URI:
-    print("CRITICAL ERROR: MONGO_URI environment variable not found!")
+DB_USER = os.environ.get('DB_USER')
+DB_PASS = os.environ.get('DB_PASS')
+CLUSTER_ADDR = "cluster0.2rxgyrx.mongodb.net"  # Change if needed
+
+if not DB_USER or not DB_PASS:
+    print("CRITICAL ERROR: DB_USER or DB_PASS environment variables not found!")
     exit()
 
-client = MongoClient(
-    MONGO_URI,
-    tls=True,
-    tlsCAFile=certifi.where()
-)
+# Encode special characters in username/password
+encoded_user = urllib.parse.quote_plus(DB_USER)
+encoded_pass = urllib.parse.quote_plus(DB_PASS)
+
+MONGO_URI = f"mongodb+srv://{encoded_user}:{encoded_pass}@{CLUSTER_ADDR}/?retryWrites=true&w=majority"
+
+client = MongoClient(MONGO_URI, tls=True, tlsCAFile=certifi.where())
+
 db = client['earning_bot']
 users_collection = db['users']
 settings_collection = db['settings']
 withdraw_requests_collection = db['withdraw_requests']
-
 
 # --- Language Dictionaries (Adsterra link er jonno notun text add kora hoyeche) ---
 languages = {
