@@ -1,0 +1,10 @@
+services:
+  - type: static
+    name: pochi-frontend
+    rootDir: frontend
+    plan: free
+    buildCommand: ""
+    publishPath: .
+    envVars:
+      - key: BACKEND_URL
+        sync: false

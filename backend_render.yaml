@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: pochi-backend
+    env: python
+    rootDir: backend
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    envVars:
+      - key: TOKEN
+        value: 7771736139:AAFhBdAAZF6-rV7YCX08hHK_FAYrHDe8sL0
+      - key: MONGO_URI
+        value: mongodb+srv://botuser:Xyz12345@tgbot.wh52pfi.mongodb.net/?retryWrites=true&w=majority&appName=tgbot
+      - key: ADSTERRA_API_TOKEN
+        value: 0bc23fcccc35acd927d3e508222416b9
+      - key: AD_SERVER_URL
+        sync: false
+      - key: DASHBOARD_URL
+        sync: false
