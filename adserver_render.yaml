@@ -2,7 +2,6 @@ services:
   - type: web
     name: pochi-adserver
     env: java
-    rootDir: adserver
     plan: free
     buildCommand: mvn clean install
     startCommand: java -jar target/adserver-1.0-SNAPSHOT.jar
